@@ -15,8 +15,10 @@ function SignIn() {
     };
     return (
         <div className="authWrapper">
-            <div className="authHeader">Sign In</div>
-            <p className="authLink"><Link to="/register">Need an account?</Link></p>
+            <div className="authHeader">
+                <div className="authTitle"> Sign In</div>
+                <Link to="/register">Need an account?</Link>
+            </div>
             <Form onFinish={onFinish}>
                 <Form.Item name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
                     <Input placeholder="Email" />

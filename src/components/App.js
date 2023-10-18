@@ -32,9 +32,9 @@ const Profile = lazy(() =>
   )
 );
 
-const SettingsScreen = lazy(() =>
+const Settings = lazy(() =>
   import(
-    /* webpackChunkName: "SettingsScreen", webpackPrefetch: true  */ './SettingsScreen'
+    /* webpackChunkName: "SettingsScreen", webpackPrefetch: true  */ './Settings'
   )
 );
 
@@ -49,7 +49,7 @@ function App() {
                 <Route path="/editor/:slug" element={<Editor />} />
                 <Route path="/editor" element={<Editor />} />
                 <Route path="/article/:slug" element={<Article />} />
-                <Route path="/settings" element={<SettingsScreen />} />
+                <Route path="/settings" element={<Settings />} />
                 <Route
                 path="/@:username/favorites"
                 element={<Profile isFavoritePage />}
