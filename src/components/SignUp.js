@@ -2,6 +2,8 @@ import React from "react";
 import { Button, Form, Input } from 'antd';
 import { useDispatch } from 'react-redux';
 import { register } from '../app/reducers/auth';
+import { Link } from 'react-router-dom';
+import './auth.css';
 
 
 
@@ -12,7 +14,9 @@ function SignUp() {
         dispatch(register(values));
     };
     return (
-        <>
+        <div className="authWrapper">
+            <div className="authHeader">Sign Up</div>
+            <p className="authLink"><Link to="/login">Have an account?</Link></p>
             <Form onFinish={onFinish}>
                 <Form.Item name="username" rules={[{ required: true, message: 'Please input your user!' }]}>
                     <Input placeholder="UserName" />
@@ -29,7 +33,7 @@ function SignUp() {
                     </Button>
                 </Form.Item>
             </Form>
-        </>
+        </div>
     );
 }
 
