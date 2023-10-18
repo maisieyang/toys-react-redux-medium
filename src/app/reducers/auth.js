@@ -14,7 +14,6 @@ import agent from '../../api/agent';
 export const register = createAsyncThunk(
   'auth/register',
   async (values) => {
-    debugger
     const { username, email, password } = values;
     try {
       const {

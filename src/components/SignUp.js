@@ -5,7 +5,7 @@ import { register } from '../app/reducers/auth';
 
 
 
-function AuthScreen() {
+function SignUp() {
     const dispatch = useDispatch();
 
     const onFinish =  (values) => {
@@ -33,4 +33,4 @@ function AuthScreen() {
     );
 }
 
-export default AuthScreen;
+export default SignUp;
