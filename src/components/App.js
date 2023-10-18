@@ -16,7 +16,13 @@ const Editor = lazy(() =>
 
 const SignUp = lazy(() =>
   import(
-    /* webpackChunkName: "AuthScreen", webpackPrefetch: true  */ './SignUp'
+    /* webpackChunkName: "SignUp", webpackPrefetch: true  */ './SignUp'
+  )
+);
+
+const SignIn = lazy(() =>
+  import(
+    /* webpackChunkName: "SignIn", webpackPrefetch: true  */ './SignIn'
   )
 );
 
@@ -38,7 +44,7 @@ function App() {
     <Suspense fallback={<p>Loading...</p>}>
             <Routes>
                 <Route exact path="/" element={<Home />} />
-                <Route path="/login" element={<SignUp />} />
+                <Route path="/login" element={<SignIn />} />
                 <Route path="/register" element={<SignUp/>} />
                 <Route path="/editor/:slug" element={<Editor />} />
                 <Route path="/editor" element={<Editor />} />

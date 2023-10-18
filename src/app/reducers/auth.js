@@ -30,4 +30,32 @@ export const register = createAsyncThunk(
     }
   }
 );
+
+
+/**
+ * Send a login request
+ *
+ * @param {object} argument
+ * @param {string} argument.email
+ * @param {string} argument.password
+ */
+export const login = createAsyncThunk(
+  'auth/login',
+  async (values) => {
+    const { email, password } = values;
+    try {
+      const {
+        user: { token, user },
+      } = await agent.Auth.login(email, password);
+
+      return { token, user };
+    } catch (error) {
+      // if (isApiError(error)) {
+      //   return thunkApi.rejectWithValue(error);
+      // }
+
+      throw error;
+    }
+  }
+);
   
