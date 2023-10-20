@@ -1,31 +1,31 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Divider } from 'antd';
+import { useDispatch } from 'react-redux';
 import './auth.css';
+import { updateUser } from '../app/reducers/auth';
 
 
 
 
 const Settings = () => {
+    const dispatch = useDispatch();
     const [form] = Form.useForm();
 
     const onFinish = values => {
+        dispatch(updateUser(values));
+
         console.log('Received values of form: ', values);
     };
+    const loginOut = () => {
+        dispatch({ type: 'auth/logout' });
+    }
 
     // 假设这是我们要回填的数据
     const userData = {
         username: '张三',
-        introduction: '前端开发者',
+        bio: '前端开发者',
         email: 'zhangsan@example.com',
-        address: 'https://my-profile-pic.jpg',
-    };
-
-    const onUploadChange = info => {
-        if (info.file.status === 'done') {
-            // 在这里处理上传成功后的逻辑，例如更新表单的地址字段
-            let imageUrl = info.file.response.url; // 假设响应体有一个url字段
-            form.setFieldsValue({ address: imageUrl });
-        }
+        image: 'https://my-profile-pic.jpg',
     };
 
     return (
@@ -34,7 +34,7 @@ const Settings = () => {
                 <div className="authTitle"> Your Settings</div>
             </div>
             <Form form={form} initialValues={userData} onFinish={onFinish}>
-                <Form.Item name="address">
+                <Form.Item name="image">
                     <Input />
                 </Form.Item>
                 <Form.Item
@@ -43,7 +43,7 @@ const Settings = () => {
                 >
                     <Input />
                 </Form.Item>
-                <Form.Item name="introduction">
+                <Form.Item name="bio">
                     <Input.TextArea />
                 </Form.Item>
                 <Form.Item
@@ -60,10 +60,14 @@ const Settings = () => {
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" htmlType="submit">
-                        提交
+                     Update Settings
                     </Button>
                 </Form.Item>
             </Form>
+            <Divider/>
+            <Button type="danger" onClick={loginOut}>
+                Or click here to logout.
+            </Button>
 
         </div>
 
