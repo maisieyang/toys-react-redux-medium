@@ -1,17 +1,20 @@
 import React from "react";
 import { Button, Form, Input } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { register } from '../app/reducers/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import ListErrors from './ListErrors';
 import './auth.css';
 
 
 
 function SignUp() {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
+    const { status,errors } = useSelector(state => state.auth);
     const onFinish =  (values) => {
         dispatch(register(values));
+        (status === 'success') && navigate('/');
     };
     return (
         <div className="authWrapper">
@@ -19,6 +22,7 @@ function SignUp() {
                 <div className="authTitle">Sign Up</div>
                 <Link to="/login">Have an account?</Link>
             </div>
+            <ListErrors errors={errors} />
             <Form onFinish={onFinish}>
                 <Form.Item name="username" rules={[{ required: true, message: 'Please input your user!' }]}>
                     <Input placeholder="UserName" />
