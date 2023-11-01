@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 import Header from './components/Header'; 
-import Home from './components/Home';
+import Home from './pages/Home';
 
 // import Article from './components/Article';
 // import Editor from './components/Editor';
@@ -18,37 +18,37 @@ import Home from './components/Home';
 
 const Article = lazy(() =>
   import(
-    /* webpackChunkName: "Article", webpackPrefetch: true  */ './components/Article'
+    /* webpackChunkName: "Article", webpackPrefetch: true  */ './pages/Article'
   )
 );
 
 const Editor = lazy(() =>
   import(
-    /* webpackChunkName: "Editor", webpackPrefetch: true  */ './components/Editor'
+    /* webpackChunkName: "Editor", webpackPrefetch: true  */ './pages/Editor'
   )
 );
 
 const SignUp = lazy(() =>
   import(
-    /* webpackChunkName: "SignUp", webpackPrefetch: true  */ './components/SignUp'
+    /* webpackChunkName: "SignUp", webpackPrefetch: true  */ './pages/SignUp'
   )
 );
 
 const SignIn = lazy(() =>
   import(
-    /* webpackChunkName: "SignIn", webpackPrefetch: true  */ './components/SignIn'
+    /* webpackChunkName: "SignIn", webpackPrefetch: true  */ './pages/SignIn'
   )
 );
 
 const Profile = lazy(() =>
   import(
-    /* webpackChunkName: "Profile", webpackPrefetch: true  */ './components/Profile'
+    /* webpackChunkName: "Profile", webpackPrefetch: true  */ './pages/Profile'
   )
 );
 
 const Settings = lazy(() =>
   import(
-    /* webpackChunkName: "SettingsScreen", webpackPrefetch: true  */ './components/Settings'
+    /* webpackChunkName: "SettingsScreen", webpackPrefetch: true  */ './pages/Settings'
   )
 );
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectIsAuthenticated, selectUser } from '../app/reducers/auth';
+import { selectIsAuthenticated, selectUser } from '../features/auth';
 
 /**
  * Navbar when there isn't a logged user

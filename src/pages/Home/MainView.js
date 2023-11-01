@@ -7,8 +7,6 @@ function MainView() {
            MainView
         </div>
     )
-    
-            
 }
 
 export default MainView;

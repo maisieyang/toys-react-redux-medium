@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTags } from "../../app/reducers/tags";
+import { getAllTags } from "../../features/tags";
 
 function TagsSidebar () {
     const dispatch = useDispatch();

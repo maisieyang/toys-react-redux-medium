@@ -1,0 +1,18 @@
+import { combineReducers } from '@reduxjs/toolkit'
+
+import { articleReducer } from '../features/article';
+import { authReducer } from '../features/auth'
+import { tagsReducer } from '../features/tags'
+
+
+/**
+ * This file combines all the slice reducers to form the root reducer.
+ */
+
+const rootReducer = combineReducers({
+    article: articleReducer,
+    auth: authReducer,
+    tags: tagsReducer,
+})
+
+export default rootReducer

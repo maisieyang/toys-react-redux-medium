@@ -1,10 +1,10 @@
 import {
     createAsyncThunk, createSlice, createSelector
 } from '@reduxjs/toolkit';
-import agent from '../../api/agent';
+import agent from '../api/agent';
 import {
     Status, handleApiError
-} from '../../common/utils';
+} from '../common/utils';
 
 
 // export const { setToken, logout } = authSlice.actions;
@@ -45,6 +45,7 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
     'auth/login',
     async (values, thunkApi) => {
+        debugger
         try {
             const { email, password } = values;
             return  await agent.Auth.login(email, password);

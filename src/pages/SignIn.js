@@ -1,10 +1,10 @@
 import React from "react";
 import { Button, Form, Input } from 'antd';
-import { login } from '../app/reducers/auth';
+import { login } from '../features/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './auth.css';
-import ListErrors from './ListErrors';
+import ListErrors from '../components/ListErrors';
 
 
 

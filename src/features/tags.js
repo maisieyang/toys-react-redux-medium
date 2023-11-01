@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import agent from '../../api/agent';
-import { handleApiError, Status } from '../../common/utils';
+import agent from '../api/agent';
+import { handleApiError, Status } from '../common/utils';
 
 /**
  * Fetch all tags

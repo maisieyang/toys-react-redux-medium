@@ -1,15 +1,13 @@
-import { configureStore, combineReducers} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
+import rootReducer from './rootReducer'
 
-import { articleReducer } from './reducers/article';
-import { authReducer } from './reducers/auth'
-import { tagsReducer } from './reducers/tags'
+
+/**
+ * This file sets up and exports the global Redux store.
+ */
 
 const store = configureStore({
-    reducer: combineReducers({
-        article: articleReducer,
-        auth: authReducer,
-        tags: tagsReducer,
-    })
+    reducer: rootReducer,
 })
 
 export default store
