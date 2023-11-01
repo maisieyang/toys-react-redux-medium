@@ -14,8 +14,9 @@ function SignIn() {
     const { status,errors } = useSelector(state => state.auth);
 
     const onFinish =  (values) => {
-        dispatch(login(values));
-        (status === 'success') && navigate('/');
+        const data = dispatch(login(values));
+        console.log(data);
+        // navigate('/');
     };
     return (
         <div className="authWrapper">

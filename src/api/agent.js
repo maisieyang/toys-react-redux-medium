@@ -33,33 +33,34 @@ function serialize(object) {
  * @returns {Promise<Object>} API response's body
  */
 const agent = async (url, body, method = 'GET') => {
-    const headers = new Headers();
-  
-    if (body) {
-      headers.set('Content-Type', 'application/json');
-    }
-  
-    if (token) {
-      headers.set('Authorization', `Token ${token}`);
-    }
-  
+  const headers = new Headers();
+
+  if (body) {
+    headers.set('Content-Type', 'application/json');
+  }
+
+  if (token) {
+    headers.set('Authorization', `Token ${token}`);
+  }
+
+  try {
     const response = await fetch(`${API_ROOT}${url}`, {
       method,
       headers,
       body: body ? JSON.stringify(body) : undefined,
     });
-    let result;
-  
-    try {
-      result = await response.json();
-    } catch (error) {
-      result = { errors: { [response.status]: [response.statusText] } };
+    // Fetch 在 HTTP 错误状态（如 404 或 500）上不会拒绝。它只在网络问题或如果任何事情阻止了请求完成时拒绝。这就是为什么我们要检查 response.ok 来处理潜在的 HTTP 错误的原因。
+    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(result.message || 'An error occurred');
     }
-  
-    if (!response.ok) throw result;
-  
+    console.log(result);
     return result;
-  };
+  }
+  catch (error) {
+    throw new Error('An error occurred');
+  }
+};
 
   const requests = {
     /**

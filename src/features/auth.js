@@ -83,9 +83,8 @@ export const updateUser = createAsyncThunk(
 function successReducer(state, action) {
     state.status = Status.SUCCESS;
     state.loading = false;
-    state.token = action.payload.token;
     state.user = action.payload.user;
-    delete state.errors;
+    state.errors = null;
   }
 
   
