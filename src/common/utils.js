@@ -24,4 +24,11 @@ export const Status = {
     return typeof error === 'object' && error !== null && 'errors' in error;
   }
 
+    // Helper function to check API errors
+  export const handleApiError = (error, thunkApi) => {
+  if (isApiError(error)) {
+    return thunkApi.rejectWithValue(error);
+  }
+  throw error;
+};
 

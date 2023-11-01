@@ -3,20 +3,14 @@ import {
 } from '@reduxjs/toolkit';
 import agent from '../../api/agent';
 import {
-    Status, isApiError
+    Status, handleApiError
 } from '../../common/utils';
 
 
 // export const { setToken, logout } = authSlice.actions;
 
 
-  // Helper function to check API errors
-const handleApiError = (error, thunkApi) => {
-    if (isApiError(error)) {
-      return thunkApi.rejectWithValue(error);
-    }
-    throw error;
-  };
+
 
 
 /**

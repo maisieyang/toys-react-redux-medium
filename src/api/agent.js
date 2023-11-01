@@ -150,6 +150,16 @@ const agent = async (url, body, method = 'GET') => {
   };
 
 
+  const Tags = {
+    /**
+     * Get all tags
+     *
+     * @returns {Promise<Tags>}
+     */
+    getAll: () => requests.get('/tags'),
+  };
+
+
   export default {
-    Auth,
+    Auth,Tags,
   };
