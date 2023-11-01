@@ -1,19 +1,10 @@
 import  { lazy, Suspense } from 'react';
-
 import { Provider } from 'react-redux';
-import store from './app/store';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-
+import store from './app/store';
 import Header from './components/Header'; 
 import Home from './pages/Home';
-
-// import Article from './components/Article';
-// import Editor from './components/Editor';
-// import SignUp from './components/SignUp';
-// import SignIn from './components/SignIn';
-// import Profile from './components/Profile';
-// import Settings from './components/Settings';
 
 
 const Article = lazy(() =>
@@ -57,7 +48,7 @@ function App() {
     <>
       <Provider store={store}>
         <BrowserRouter>
-          <Header />  
+          <Header />
           <Suspense fallback={<p>Loading...</p>}>
             <Routes>
               <Route exact path="/" element={<Home />} />
@@ -80,31 +71,6 @@ function App() {
   );
 }
 
-// function App() {
-//   return (
-//     <>
-//       <Provider store={store}>
-//         <BrowserRouter>
-//             <Header />
-//             <Routes>
-//               <Route exact path="/" element={<Home />} />
-//               <Route path="/login" element={<SignIn />} />
-//               <Route path="/register" element={<SignUp />} />
-//               <Route path="/editor/:slug" element={<Editor />} />
-//               <Route path="/editor" element={<Editor />} />
-//               <Route path="/article/:slug" element={<Article />} />
-//               <Route path="/settings" element={<Settings />} />
-//               <Route
-//                 path="/@:username/favorites"
-//                 element={<Profile isFavoritePage />}
-//               />
-//               <Route path="/@:username" element={<Profile />} />
-//             </Routes>
-//         </BrowserRouter>
-//       </Provider>
-//     </>
-//   );
-// }
 
 
 
