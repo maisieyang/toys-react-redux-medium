@@ -1,6 +1,6 @@
 import requests from './agent';
 
-const Tags = {
+const tags = {
     /**
      * Get all tags
      *
@@ -11,4 +11,4 @@ const Tags = {
 
 
 
-  export default Tags;
+  export default tags;

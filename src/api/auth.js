@@ -1,7 +1,7 @@
 import requests from './agent';
 
 
-const Auth = {
+const auth = {
     /**
      * Get current user
      *
@@ -41,4 +41,4 @@ const Auth = {
     save: (user) => requests.put('/user', { user }),
   };
 
-  export default Auth;
+  export default auth;

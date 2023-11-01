@@ -1,7 +1,7 @@
 import {
     createAsyncThunk, createSlice, createSelector
 } from '@reduxjs/toolkit';
-import agent from '../api/agent';
+import auth from '../api/auth';
 import {
     Status, handleApiError
 } from '../common/utils';
@@ -26,7 +26,7 @@ export const register = createAsyncThunk(
     async (values, thunkApi) => {
         try {
             const { username, email, password } = values;
-            return await agent.Auth.register(username, email, password);
+            return await auth.register(username, email, password);
         }
         catch (error) {
             return handleApiError(error, thunkApi);
@@ -45,16 +45,13 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
     'auth/login',
     async (values, thunkApi) => {
-        debugger
         try {
             const { email, password } = values;
-            return  await agent.Auth.login(email, password);
-            
+            return  await auth.login(email, password); 
         }
         catch (error) {
             return handleApiError(error, thunkApi);
         }
-
     }
 );
 
@@ -72,7 +69,7 @@ export const updateUser = createAsyncThunk(
     async (values, thunkApi) => {
         const { username, email, password, image, bio } = values;
         try {
-            return await agent.Auth.save(username, email, password, image, bio);
+            return await auth.save(username, email, password, image, bio);
         } catch (error) {
             return handleApiError(error, thunkApi);
         }
