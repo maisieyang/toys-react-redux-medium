@@ -1,5 +1,5 @@
 import {
-    createAsyncThunk, createSlice
+    createAsyncThunk, createSlice, createSelector
 } from '@reduxjs/toolkit';
 import agent from '../../api/agent';
 import {
@@ -135,6 +135,27 @@ const authSlice = createSlice({
     }
 });
 
+
+
+/**
+ * Get is authenticated
+ *
+ * @param {object} state
+ * @returns {boolean}
+ */
+export const selectIsAuthenticated = createSelector(
+    (state) => state.auth.token,
+    (state) => state.auth.user,
+    (token, user) => Boolean(token && user)
+  );
+
+/**
+ * Get current user
+ *
+ * @param {object} state
+ * @returns {User}
+ */
+export const selectUser = (state) => state.auth.user;
 
 
 export const authReducer = authSlice.reducer
