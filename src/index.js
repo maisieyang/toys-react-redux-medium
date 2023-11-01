@@ -11,10 +11,8 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-          {/* <ConnectedRouter history={history}> */}
-          <App />
-          {/* </ConnectedRouter> */}
-        </Router>
+        <App />
+      </Router>
     </Provider>
   </React.StrictMode>
 );
