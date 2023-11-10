@@ -44,14 +44,9 @@ export const register = createAsyncThunk(
  */
 export const login = createAsyncThunk(
     'auth/login',
-    async (values, thunkApi) => {
-        try {
-            const { email, password } = values;
-            return  await auth.login(email, password); 
-        }
-        catch (error) {
-            return handleApiError(error, thunkApi);
-        }
+    async (values) => {
+        const { email, password } = values;
+        return  await auth.login(email, password); 
     }
 );
 
