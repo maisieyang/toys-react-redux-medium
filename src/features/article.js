@@ -69,4 +69,5 @@ const articleSlice = createSlice({
 
 export const { articlePageUnloaded } = articleSlice.actions;
 
-export default articleSlice.reducer;
+export const articleReducer = articleSlice.reducer
+

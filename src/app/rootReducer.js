@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
-import { articleReducer } from '../features/article';
+import { articleReducer } from '../features/article'
 import { authReducer } from '../features/auth'
 import { tagsReducer } from '../features/tags'
 

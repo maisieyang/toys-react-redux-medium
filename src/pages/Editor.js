@@ -1,14 +1,14 @@
 import React, { useState, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ListErrors from './ListErrors';
+import ListErrors from '../components/ListErrors';
 import {
   getArticle,
   createArticle,
   updateArticle,
   articlePageUnloaded,
 } from '../features/article';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 
 /**
  * Editor component
