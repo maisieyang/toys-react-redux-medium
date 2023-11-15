@@ -20,12 +20,15 @@ function Editor({ match }) {
   const dispatch = useDispatch();
   const { article, errors, inProgress } = useSelector((state) => state.article);
   const { slug } = useParams();
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [body, setBody] = useState('');
   const [tagInput, setTagInput] = useState('');
   const [tagList, setTagList] = useState([]);
+
   const navigate = useNavigate();
+
   /**
    * @type {React.ChangeEventHandler<HTMLInputElement>}
    */
@@ -53,6 +56,7 @@ function Editor({ match }) {
   const changeTagInput = (event) => {
     setTagInput(event.target.value);
   };
+
 
   /**
    * Reset the form values
