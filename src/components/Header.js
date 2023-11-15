@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectIsAuthenticated, selectUser } from '../features/auth';
+import { useDispatch, useSelector } from "react-redux";
+import { isAuthenticated, selectUser, getUser} from '../features/auth';
 
 /**
  * Navbar when there isn't a logged user
@@ -82,7 +82,10 @@ function LoggedInNavbar() {
  * <Header />
  */
 function Header() {
-    const isAuthenticated = useSelector(selectIsAuthenticated);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getUser());
+    }, [dispatch]);
     return (
         <nav className="navbar navbar-light">
             <div className="container">

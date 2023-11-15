@@ -67,14 +67,26 @@ export const updateUser = createAsyncThunk(
 );
 
 /**
+ * get current User request
+ */
+export const getUser = createAsyncThunk(
+    'auth/getUser',
+    async () => {
+        return await auth.current();
+    }
+);
+
+/**
  * @param {import('@reduxjs/toolkit').Draft<AuthState>} state
  * @param {import('@reduxjs/toolkit').PayloadAction<{token: string, user: User}>} action
  */
-function successReducer(state, action) {
+function successReducer(state, action,setToken=false) {
     state.status = Status.SUCCESS;
     state.loading = false;
     state.user = action.payload.user;
-    localStorage.setItem('jwt', action.payload.user.token);
+    if (setToken) {
+        localStorage.setItem('jwt', action.payload.user.token);
+    }
     state.errors = null;
   }
 
@@ -103,14 +115,15 @@ const authSlice = createSlice({
             .addCase(register.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(register.fulfilled, (state, action)=> successReducer(state, action))
-            .addCase(register.rejected, (state, action)=> failureReducer(state, action))
+            .addCase(register.fulfilled, (state, action)=> successReducer(state, action, 
+                { setToken:true }))
+            .addCase(register.rejected, (state, action)=> failureReducer(state, true))
 
         builder
             .addCase(login.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(login.fulfilled,(state, action)=> successReducer(state, action))
+            .addCase(login.fulfilled,(state, action)=> successReducer(state, action, { setToken:true }))
             .addCase(login.rejected,(state, action)=> failureReducer(state, action));
 
         builder
@@ -119,6 +132,13 @@ const authSlice = createSlice({
             })
             .addCase(updateUser.fulfilled, (state, action)=> successReducer(state, action))
             .addCase(updateUser.rejected, (state, action)=> failureReducer(state, action));
+        
+        builder
+            .addCase(getUser.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getUser.fulfilled, (state, action)=> successReducer(state, action))
+            .addCase(getUser.rejected, (state, action)=> failureReducer(state, action))
 
     }
 });
@@ -131,11 +151,7 @@ const authSlice = createSlice({
  * @param {object} state
  * @returns {boolean}
  */
-export const selectIsAuthenticated = createSelector(
-    (state) => state.auth.token,
-    (state) => state.auth.user,
-    (token, user) => Boolean(token && user)
-  );
+export const isAuthenticated = localStorage.getItem('jwt') ? true : false;
 
 /**
  * Get current user
