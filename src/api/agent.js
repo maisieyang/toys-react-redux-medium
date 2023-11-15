@@ -18,8 +18,6 @@ function serialize(object) {
   
     return params.join('&');
   }
-  
-  let token = null;
 
 /**
  * API client
@@ -34,13 +32,14 @@ function serialize(object) {
  */
 const agent = async (url, body, method = 'GET') => {
   const headers = new Headers();
+  const token = localStorage.getItem('jwt');
 
   if (body) {
     headers.set('Content-Type', 'application/json');
   }
 
   if (token) {
-    headers.set('Authorization', `Token ${token}`);
+    headers.set('Authorization', `Bearer ${token}`);
   }
 
   try {
@@ -50,6 +49,11 @@ const agent = async (url, body, method = 'GET') => {
       body: body ? JSON.stringify(body) : undefined,
     });
     // Fetch 在 HTTP 错误状态（如 404 或 500）上不会拒绝。它只在网络问题或如果任何事情阻止了请求完成时拒绝。这就是为什么我们要检查 response.ok 来处理潜在的 HTTP 错误的原因。
+    if (response.status === 401) {
+      // 401 状态，用户未授权
+      // 进行重定向到登录页面
+      window.location.href = '/login';
+    }
     const result = await response.json();
     if (!response.ok) {
       throw new Error(result.message || 'An error occurred');

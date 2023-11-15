@@ -23,14 +23,9 @@ import {
  */
 export const register = createAsyncThunk(
     'auth/register',
-    async (values, thunkApi) => {
-        try {
-            const { username, email, password } = values;
-            return await auth.register(username, email, password);
-        }
-        catch (error) {
-            return handleApiError(error, thunkApi);
-        }
+    async (values) => {
+        const { username, email, password } = values;
+        return await auth.register(username, email, password);
     }
 );
 
@@ -79,6 +74,7 @@ function successReducer(state, action) {
     state.status = Status.SUCCESS;
     state.loading = false;
     state.user = action.payload.user;
+    localStorage.setItem('jwt', action.payload.user.token);
     state.errors = null;
   }
 

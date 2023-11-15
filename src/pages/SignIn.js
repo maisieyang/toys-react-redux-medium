@@ -11,12 +11,13 @@ import ListErrors from '../components/ListErrors';
 function SignIn() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { status,errors } = useSelector(state => state.auth);
+    const { errors } = useSelector(state => state.auth);
 
-    const onFinish =  (values) => {
-        const data = dispatch(login(values));
-        console.log(data);
-        // navigate('/');
+    const onFinish =  async (values) => {
+        const data = await dispatch(login(values));
+        if (data && data.payload && data.payload.user) {
+            navigate('/');
+        }
     };
     return (
         <div className="authWrapper">
