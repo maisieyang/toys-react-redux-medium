@@ -4,12 +4,9 @@ import { getAllTags } from "../../features/tags";
 
 function TagsSidebar () {
     const dispatch = useDispatch();
-
-    const tags = useSelector((state) => state.tags);
-    const isLoading = useSelector((state) => state.tags.isLoading);
+    const { tags, status } = useSelector((state) => state.tags);
     useEffect(() => {
         const fetchTags = dispatch(getAllTags());
-
         return () => {
           fetchTags.abort();
         };
@@ -19,8 +16,7 @@ function TagsSidebar () {
         <div className="sidebar">
             <p>Popular Tags</p>
             <div className="tag-list">
-                {isLoading && <div>Loading...</div>}
-                {!tags && tags.map((tag) => <a href="" className="tag-pill tag-default">{tag}</a>)}
+                {status ==='success' && tags.map((tag,index) => <a href="" key={index} className="tag-pill tag-default">{tag}&nbsp;</a>)}
             </div>
         </div>
     )

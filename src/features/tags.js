@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import agent from '../api/agent';
+import tags from '../api/tags';
 import { handleApiError, Status } from '../common/utils';
 
 /**
@@ -10,7 +10,7 @@ import { handleApiError, Status } from '../common/utils';
     async (_,thunkApi) => {
         try {
             
-            return await agent.Tags.getAll();
+            return await tags.getAll();
         }
         catch (error) {
             return handleApiError(error, thunkApi);
@@ -42,6 +42,7 @@ import { handleApiError, Status } from '../common/utils';
  */
   const initialState = {
     status: Status.IDLE,
+
   };
 
 const tagsSlice = createSlice({
@@ -51,16 +52,18 @@ const tagsSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(getAllTags.fulfilled, (state, action) => {
-            
             state.tags = action.payload.tags;
+            state.status =  Status.SUCCESS;
         })
         .addCase(getAllTags.rejected, (state, action) => {
             
             state.error = action.error;
+            state.status =  Status.FAILURE;
         })
         .addCase(getAllTags.pending, (state) => {
             
             state.tags = [];
+            state.status =  Status.LOADING;
         })
 
     }
