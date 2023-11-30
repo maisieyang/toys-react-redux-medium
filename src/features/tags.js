@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import tags from '../api/tags';
-import { handleApiError, Status } from '../common/utils';
+import { handleApiError, Status } from '../shared/utils/utils';
 
 /**
  * Fetch all tags

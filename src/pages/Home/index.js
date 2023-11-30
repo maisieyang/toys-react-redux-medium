@@ -1,7 +1,7 @@
 import React from "react";
-import Banner from "./Banner";
-import MainView from "./MainView";
-import TagsSidebar from "./TagsSidebar";
+import Banner from "../../features/userManagement/ui/home/Banner";
+import MainView from "../../features/userManagement/ui/home/MainView";
+import TagsSidebar from "../../features/userManagement/ui/home/TagsSidebar";
 
 
 

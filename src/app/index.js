@@ -2,44 +2,44 @@ import  { lazy, Suspense } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import store from './app/store';
-import Header from './components/Header'; 
-import Home from './pages/Home';
+import store from './providers/store';
+import Header from '../shared/ui/Header'; 
+import Home from '../pages/home';
 
 
 const Article = lazy(() =>
   import(
-    /* webpackChunkName: "Article", webpackPrefetch: true  */ './pages/Article'
+    /* webpackChunkName: "Article", webpackPrefetch: true  */ '../pages/article'
   )
 );
 
 const Editor = lazy(() =>
   import(
-    /* webpackChunkName: "Editor", webpackPrefetch: true  */ './pages/Editor'
+    /* webpackChunkName: "Editor", webpackPrefetch: true  */ '../pages/editor/EditorPage'
   )
 );
 
 const SignUp = lazy(() =>
   import(
-    /* webpackChunkName: "SignUp", webpackPrefetch: true  */ './pages/SignUp'
+    /* webpackChunkName: "SignUp", webpackPrefetch: true  */ '../pages/register'
   )
 );
 
 const SignIn = lazy(() =>
   import(
-    /* webpackChunkName: "SignIn", webpackPrefetch: true  */ './pages/SignIn'
+    /* webpackChunkName: "SignIn", webpackPrefetch: true  */ '../pages/login'
   )
 );
 
 const Profile = lazy(() =>
   import(
-    /* webpackChunkName: "Profile", webpackPrefetch: true  */ './pages/Profile'
+    /* webpackChunkName: "Profile", webpackPrefetch: true  */ '../pages/profile'
   )
 );
 
 const Settings = lazy(() =>
   import(
-    /* webpackChunkName: "SettingsScreen", webpackPrefetch: true  */ './pages/Settings'
+    /* webpackChunkName: "SettingsScreen", webpackPrefetch: true  */ '../pages/setting'
   )
 );
 

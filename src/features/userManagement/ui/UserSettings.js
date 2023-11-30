@@ -1,8 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, Divider } from 'antd';
 import { useDispatch } from 'react-redux';
-import './auth.css';
-import { updateUser } from '../features/auth';
+import { updateUser } from '../model/auth';
 
 
 

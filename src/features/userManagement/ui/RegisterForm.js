@@ -1,14 +1,13 @@
 import React from "react";
 import { Button, Form, Input } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
-import { register } from '../features/auth';
+import { register } from '../model/auth';;
 import { Link, useNavigate } from 'react-router-dom';
-import ListErrors from '../components/ListErrors';
-import './auth.css';
+import ListErrors from '../../../shared/ui/ListErrors';
 
 
 
-function SignUp() {
+function RegisterForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { status,errors } = useSelector(state => state.auth);
@@ -43,4 +42,5 @@ function SignUp() {
     );
 }
 
-export default SignUp;
+
+export default RegisterForm;

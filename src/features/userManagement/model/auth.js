@@ -1,10 +1,10 @@
 import {
     createAsyncThunk, createSlice, createSelector
 } from '@reduxjs/toolkit';
-import auth from '../api/auth';
+import auth from '../../../api/auth';
 import {
     Status, handleApiError
-} from '../common/utils';
+} from '../../../shared/utils/utils';
 
 
 // export const { setToken, logout } = authSlice.actions;
