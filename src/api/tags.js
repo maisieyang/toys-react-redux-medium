@@ -1,4 +1,4 @@
-import requests from './agent';
+import requests from '../shared/api/agent';
 
 const tags = {
     /**
