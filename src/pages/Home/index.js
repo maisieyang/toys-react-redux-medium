@@ -1,7 +1,7 @@
 import React from "react";
-import Banner from "../../features/userManagement/ui/home/Banner";
-import MainView from "../../features/userManagement/ui/home/MainView";
-import TagsSidebar from "../../features/userManagement/ui/home/TagsSidebar";
+import Banner from "../../features/articleManagement/ui/Banner";
+import Article from "../../features/articleManagement/ui/Article";
+import PopularTags from "../../features/articleManagement/ui/PopularTags";
 
 
 
@@ -11,9 +11,9 @@ function Home() {
             <Banner />
             <div className="container page">
                 <div className="row">
-                    <MainView />
+                    <Article />
                     <div className="col-md-3">
-                        <TagsSidebar />
+                        <PopularTags />
                     </div>
                 </div>
             </div>

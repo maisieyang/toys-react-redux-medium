@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import tags from '../api/tags';
-import { handleApiError, Status } from '../shared/utils/utils';
+import tags from '../../../entities/tags';
+import { handleApiError, Status } from '../../../shared/utils/utils';
 
 /**
  * Fetch all tags
@@ -18,37 +18,24 @@ import { handleApiError, Status } from '../shared/utils/utils';
     }
 );
 
-// /**
-//  * 
-//  * @param {object} argument
-//  * @param {string} argument.tag
-//  * @param {number} argument.page
-//  */
-// export const getArticlesByTag = createAsyncThunk(
-//     'tags/getArticlesByTag',
-//     async (values, thunkApi) => {
-//         try {
-//             const { tag, page } = values;
-//             return await agent.Articles.byTag(tag, page);
-//         }
-//         catch (error) {
-//             return handleApiError(error, thunkApi);
-//         }
-//     }
-// );
-
   /**
  * @type {AuthState}
  */
   const initialState = {
     status: Status.IDLE,
+    tags: [],
+    feedTag: '',
 
   };
 
 const tagsSlice = createSlice({
     name: 'tags',
     initialState,
-    reducers: {},
+    reducers: {
+        chooseFeedTag: (state, action) => {
+            state.feedTag = action.payload.feedTag;
+        }
+    },
     extraReducers: (builder) => {
         builder
         .addCase(getAllTags.fulfilled, (state, action) => {
@@ -69,6 +56,7 @@ const tagsSlice = createSlice({
     }
 });
 
+export const { chooseFeedTag } = tagsSlice.actions;
 
-export const tagsReducer = tagsSlice.reducer;
+export default tagsSlice.reducer;
 

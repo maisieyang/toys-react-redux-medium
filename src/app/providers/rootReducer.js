@@ -2,7 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit'
 
 import { articleReducer } from '../../features/article'
 import { authReducer } from '../../features/userManagement/model/auth'
-import { tagsReducer } from '../../features/tags'
+import { tagsReducer } from '../../features/articleManagement/model/tags'
 
 
 /**

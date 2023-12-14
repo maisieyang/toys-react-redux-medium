@@ -7,6 +7,7 @@ const tags = {
      * @returns {Promise<Tags>}
      */
     getAll: () => requests.get('/tags'),
+    create: () => requests.create('/tags'),
   };
 
 
