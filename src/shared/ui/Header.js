@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import { isAuthenticated, selectUser, getUser} from '../../features/userManagement/model/auth';
 
 /**
  * Navbar when there isn't a logged user
@@ -36,8 +34,7 @@ function LoggedOutNavbar() {
  * <LoggedInNavbar />
  */
 function LoggedInNavbar() {
-    const currentUser = useSelector(selectUser);
-
+    const currentUser =  JSON.parse(localStorage.getItem('user'));
     return (
         <ul className="nav navbar-nav pull-xs-right">
             <li className="nav-item">
@@ -64,11 +61,11 @@ function LoggedInNavbar() {
                 <Link to={`/@${currentUser?.username}`} className="nav-link">
                     <img
                         src={
-                            currentUser?.image ||
+                            currentUser.image ||
                             'https://static.productionready.io/images/smiley-cyrus.jpg'
                         }
                         className="user-pic"
-                        alt={currentUser?.username}
+                        alt={currentUser.username}
                     />
                     {currentUser?.username}
                 </Link>
@@ -82,17 +79,14 @@ function LoggedInNavbar() {
  * <Header />
  */
 function Header() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getUser());
-    }, [dispatch]);
+    const isAuthenticated = localStorage.getItem('user')? true : false;
     return (
         <nav className="navbar navbar-light">
             <div className="container">
                 <Link to="/" className="navbar-brand">
                     Conduit
                 </Link>
-                {isAuthenticated ? <LoggedInNavbar /> : <LoggedOutNavbar />}
+                {isAuthenticated ? <LoggedInNavbar/> : <LoggedOutNavbar />}
             </div>
         </nav>
     );
