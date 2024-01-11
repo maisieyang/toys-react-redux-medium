@@ -3,14 +3,11 @@ import {
 } from '@reduxjs/toolkit';
 import auth from '../../../entities/auth';
 import {
-    Status, handleApiError
+    Status,
 } from '../../../shared/utils/utils';
 
 
 // export const { setToken, logout } = authSlice.actions;
-
-
-
 
 
 /**
@@ -23,9 +20,13 @@ import {
  */
 export const register = createAsyncThunk(
     'auth/register',
-    async (values) => {
-        const { username, email, password } = values;
-        return await auth.register(username, email, password);
+    async (values,thunkApi) => {
+        try {
+            const { username, email, password } = values;
+            return await auth.register(username, email, password);
+        } catch (error) {
+            return thunkApi.rejectWithValue(error);
+        }
     }
 );
 
@@ -39,9 +40,13 @@ export const register = createAsyncThunk(
  */
 export const login = createAsyncThunk(
     'auth/login',
-    async (values) => {
+    async (values,thunkApi) => {
         const { email, password } = values;
-        return  await auth.login(email, password);
+        try {
+            return await auth.login(email, password);
+        } catch (error) {
+            return thunkApi.rejectWithValue(error);
+        }
     }
 );
 
@@ -61,7 +66,7 @@ export const updateUser = createAsyncThunk(
         try {
             return await auth.save(username, email, password, image, bio);
         } catch (error) {
-            return handleApiError(error, thunkApi);
+            return thunkApi.rejectWithValue(error);
         }
     }
 );
@@ -75,29 +80,6 @@ export const getUser = createAsyncThunk(
         return await auth.current();
     }
 );
-
-/**
- * @param {import('@reduxjs/toolkit').Draft<AuthState>} state
- * @param {import('@reduxjs/toolkit').PayloadAction<{token: string, user: User}>} action
- */
-function successReducer(state, action,setToken=false) {
-    state.status = Status.SUCCESS;
-    state.loading = false;
-    state.user = action.payload.user;
-    if (setToken) {
-        localStorage.setItem('jwt', action.payload.user.token);
-    }
-    state.errors = null;
-  }
-
-  
-
-function failureReducer(state, action) {
-    state.loading = false;
-    state.status = Status.FAILURE;
-    state.errors = action.payload.errors;
-  }
-
 
   /**
  * @type {AuthState}
@@ -115,31 +97,63 @@ const authSlice = createSlice({
             .addCase(register.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(register.fulfilled, (state, action)=> successReducer(state, action, 
-                { setToken:true }))
-            .addCase(register.rejected, (state, action)=> failureReducer(state, true))
+            .addCase(register.fulfilled, (state, action)=> {
+                state.status = Status.SUCCESS;
+                state.loading = false;
+                state.user = action.payload.user;
+                localStorage.setItem('jwt', action.payload.user.token);
+                localStorage.setItem('user', JSON.stringify(action.payload.user));
+                state.errors = null;
+
+            })
+            .addCase(register.rejected, (state, action)=> {
+                state.loading = false;
+                state.status = Status.FAILURE;
+                state.errors = action.payload.errors;
+            })
 
         builder
             .addCase(login.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(login.fulfilled,(state, action)=> successReducer(state, action, { setToken:true }))
-            .addCase(login.rejected,(state, action)=> failureReducer(state, action));
+            .addCase(login.fulfilled,(state, action)=> {
+                state.status = Status.SUCCESS;
+                state.loading = false;
+                state.user = action.payload.user;
+                localStorage.setItem('jwt', action.payload.user.token);
+                localStorage.setItem('user', JSON.stringify(action.payload.user));
+                state.errors = null;
+            })
+            .addCase(login.rejected,(state, action)=> {  
+                state.loading = false;
+                state.status = Status.FAILURE;
+                state.errors = action.payload.errors;
+            });
 
         builder
             .addCase(updateUser.pending, (state) => {   
                 state.loading = true;
             })
-            .addCase(updateUser.fulfilled, (state, action)=> successReducer(state, action))
-            .addCase(updateUser.rejected, (state, action)=> failureReducer(state, action));
+            .addCase(updateUser.fulfilled, (state, action)=> {
+                state.status = Status.SUCCESS;
+                state.loading = false;
+                state.user = action.payload.user;
+                localStorage.setItem('user', JSON.stringify(action.payload.user));
+                state.errors = null;
+            })
+            .addCase(updateUser.rejected, (state, action)=> {
+                state.loading = false;
+                state.status = Status.FAILURE;
+                state.errors = action.payload.errors;
+            });
         
         builder
-            .addCase(getUser.pending, (state) => {
-                state.loading = true;
+            .addCase(getUser.fulfilled, (state, action)=> {
+                state.status = Status.SUCCESS;
+                state.loading = false;
+                state.user = action.payload.user;
+                state.errors = null;
             })
-            .addCase(getUser.fulfilled, (state, action)=> successReducer(state, action))
-            .addCase(getUser.rejected, (state, action)=> failureReducer(state, action))
-
     }
 });
 
@@ -152,14 +166,6 @@ const authSlice = createSlice({
  * @returns {boolean}
  */
 export const isAuthenticated = localStorage.getItem('jwt') ? true : false;
-
-/**
- * Get current user
- *
- * @param {object} state
- * @returns {User}
- */
-export const selectUser = (state) => state.auth.user;
 
 
 export const authReducer = authSlice.reducer
