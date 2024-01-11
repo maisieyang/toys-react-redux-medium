@@ -41,7 +41,6 @@ const agent = async (url, body, method = 'GET') => {
   if (token) {
     headers.set('Authorization', `Bearer ${token}`);
   }
-
   try {
     const response = await fetch(`${API_ROOT}${url}`, {
       method,
@@ -52,17 +51,16 @@ const agent = async (url, body, method = 'GET') => {
     if (response.status === 401) {
       // 401 状态，用户未授权
       // 进行重定向到登录页面
-      window.location.href = '/login';
+      // window.location.href = '/login';
     }
     const result = await response.json();
     if (!response.ok) {
-      throw new Error(result.message || 'An error occurred');
+      throw result;
     }
-    console.log(result);
     return result;
   }
   catch (error) {
-    throw new Error('An error occurred');
+    throw error;
   }
 };
 
