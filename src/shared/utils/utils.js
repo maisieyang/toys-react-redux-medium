@@ -21,6 +21,7 @@ export const Status = {
    * @returns {boolean} error is ApiError
    */
   export function isApiError(error) {
+    console.log(error)
     return typeof error === 'object' && error !== null && 'errors' in error;
   }
 

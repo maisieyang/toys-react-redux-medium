@@ -1,8 +1,14 @@
 import RegisterForm from  '../../features/userManagement/ui/RegisterForm';
+import Header from '../../shared/ui/Header'; 
+
 
 function SignUp() {
     return (
-        <RegisterForm />
+        <div>
+            <Header />
+            <RegisterForm />
+        </div>
+
     );
 }
 

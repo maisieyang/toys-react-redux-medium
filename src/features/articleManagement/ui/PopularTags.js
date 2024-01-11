@@ -5,9 +5,17 @@ import { getAllTags,chooseFeedTag } from "../model/tags";
 function PopularTags () {
     const dispatch = useDispatch();
     const { tags } = useSelector((state) => state.tags);
+    // useEffect(() => {
+    //     dispatch(getAllTags());
+    // },[dispatch]);
+
     useEffect(() => {
-        dispatch(getAllTags());
-    });
+      const fetchTags = dispatch(getAllTags());
+  
+      return () => {
+        fetchTags.abort();
+      };
+    }, [dispatch]);
 
     const handleFeedTag = (tag) => {
         dispatch(chooseFeedTag({ feedTag: tag }));

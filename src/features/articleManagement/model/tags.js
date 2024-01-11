@@ -58,5 +58,5 @@ const tagsSlice = createSlice({
 
 export const { chooseFeedTag } = tagsSlice.actions;
 
-export default tagsSlice.reducer;
 
+export const tagsReducer = tagsSlice.reducer;

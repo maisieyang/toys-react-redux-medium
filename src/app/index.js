@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import store from './providers/store';
-import Header from '../shared/ui/Header'; 
 import Home from '../pages/home';
 
 
@@ -48,7 +47,6 @@ function App() {
     <>
       <Provider store={store}>
         <BrowserRouter>
-          <Header />
           <Suspense fallback={<p>Loading...</p>}>
             <Routes>
               <Route exact path="/" element={<Home />} />
