@@ -10,21 +10,23 @@ import ListErrors from '../../../shared/ui/ListErrors';
 function SignIn() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { errors } = useSelector(state => state.auth);
+    const { errors, loading} = useSelector(state => state.auth);
 
-    const onFinish =  async (values) => {
+    const onFinish = 
+    async (values) => {
         const data = await dispatch(login(values));
         if (data && data.payload && data.payload.user) {
             navigate('/');
         }
     };
+    
     return (
         <div className="authWrapper">
             <div className="authHeader">
                 <div className="authTitle"> Sign In</div>
                 <Link to="/register">Need an account?</Link>
             </div>
-            <ListErrors errors={errors} />
+            {!loading &&  <ListErrors errors={errors} />}
             <Form onFinish={onFinish}>
                 <Form.Item name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
                     <Input placeholder="Email" />

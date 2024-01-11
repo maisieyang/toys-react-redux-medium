@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, Input } from 'antd';
-import { useDispatch,useSelector } from 'react-redux';
-import { register } from '../model/auth';;
+import { useDispatch,useSelector} from 'react-redux';
+import { register } from '../model/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import ListErrors from '../../../shared/ui/ListErrors';
 
@@ -10,10 +10,12 @@ import ListErrors from '../../../shared/ui/ListErrors';
 function RegisterForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { status,errors } = useSelector(state => state.auth);
-    const onFinish =  (values) => {
-        dispatch(register(values));
-        (status === 'success') && navigate('/');
+    const { errors, loading } = useSelector(state => state.auth);
+    const onFinish =  async (values) => {
+        const data = await dispatch(register(values));
+        if (data && data.payload && data.payload.user) {
+            navigate('/');
+        }
     };
     return (
         <div className="authWrapper">
@@ -21,7 +23,7 @@ function RegisterForm() {
                 <div className="authTitle">Sign Up</div>
                 <Link to="/login">Have an account?</Link>
             </div>
-            <ListErrors errors={errors} />
+            {!loading &&  <ListErrors errors={errors} />}
             <Form onFinish={onFinish}>
                 <Form.Item name="username" rules={[{ required: true, message: 'Please input your user!' }]}>
                     <Input placeholder="UserName" />
